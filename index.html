@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cooltim233 🔥</title>
+    <!-- 添加像素字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000000; /* 黑色背景 */
+        }
+
+        .tv-outer {
+            width: 100vw;
+            height: 100vh;
+            background: 
+                linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 30%, #1a1a1a 70%, #0f0f0f 100%);
+            border-radius: 48px;
+            padding: 24px; /* 增加边框厚度，更像老电视 */
+            box-shadow: 
+                /* 外部阴影 */
+                0 0 80px 20px rgba(0,0,0,0.8),
+                /* 内部立体效果 */
+                inset 0 0 0 4px #444,
+                inset 0 0 0 8px #222,
+                inset 0 0 0 12px #333,
+                /* 光影立体感 */
+                inset -8px -8px 20px rgba(0,0,0,0.6),
+                inset 8px 8px 20px rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 添加电视外壳的细节纹理 */
+        .tv-outer::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border-radius: 36px;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.02) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tv-frame {
+            width: 98vw;
+            height: 94vh;
+            max-width: 1600px;
+            max-height: 1000px;
+            background: linear-gradient(180deg, #444 0%, #23272e 100%);
+            border-radius: 48px;
+            box-shadow: 0 0 60px 10px rgba(0,0,0,0.35), 0 0 0 8px #bdb8a3;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 屏幕反光/玻璃质感 */
+        .tv-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 20px;
+            background:
+                linear-gradient(120deg, rgba(255,255,255,0.10) 10%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.00) 60%),
+                radial-gradient(circle at 30% 10%, rgba(255,255,255,0.10) 0%, transparent 80%);
+            z-index: 2;
+        }
+
+        /* 屏幕扫描线+噪点动画 */
+        .tv-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 20px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.012) 0px,   /* 扫描线更淡 */
+                    rgba(255,255,255,0.012) 2px,
+                    transparent 2px,
+                    transparent 4px
+                ),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.03"/></svg>');
+            animation: scan-move 2s linear infinite;
+            z-index: 3;
+        }
+
+        @keyframes scan-move {
+            0% { background-position-y: 0, 0; }
+            100% { background-position-y: 8px, 0; }
+        }
+
+        .logo-container {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: rotate3d 8s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        /* 音乐控制面板 - 在电视框架边框上 */
+        .music-control-panel {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .music-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #3a3a3a, #1a1a1a);
+            box-shadow: 
+                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.6),
+                0 2px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 21;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+            margin: 0;
+            position: relative;
+        }
+
+        .music-button:hover {
+            background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+            box-shadow: 
+                inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.6),
+                0 3px 8px rgba(0, 0, 0, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .music-button:active {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            box-shadow: 
+                inset 3px 3px 6px rgba(0, 0, 0, 0.8),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+            transform: translateY(1px);
+        }
+
+        /* 播放按钮特殊样式 */
+        .play-button {
+            background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+            border: 1px solid rgba(136, 136, 136, 0.4);
+        }
+
+        .play-button:hover {
+            background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+            border-color: rgba(136, 136, 136, 0.6);
+            box-shadow: 
+                inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.6),
+                0 0 8px rgba(136, 136, 136, 0.3);
+        }
+
+        .music-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;  /* 悬停时边框变为纯白 */
+        }
+
+        .play-icon {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(90deg, #cccccc 0%, #888888 50%, #cccccc 100%);
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            margin-left: 2px;
+            filter: drop-shadow(0 0 2px rgba(136, 136, 136, 0.4));
+        }
+
+        .prev-icon, .next-icon {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 上一首图标 - 双向左箭头 */
+        .prev-icon::before, .prev-icon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent #888888 transparent transparent;
+            filter: drop-shadow(0 0 2px rgba(136, 136, 136, 0.4));
+        }
+
+        .prev-icon::before {
+            border-width: 7px 8px 7px 0;
+            left: 1px;
+            top: 0;
+        }
+
+        .prev-icon::after {
+            border-width: 7px 8px 7px 0;
+            left: -4px;
+            top: 0;
+        }
+
+        /* 下一首图标 - 双向右箭头 */
+        .next-icon::before, .next-icon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent transparent transparent #888888;
+            filter: drop-shadow(0 0 2px rgba(136, 136, 136, 0.4));
+        }
+
+        .next-icon::before {
+            border-width: 7px 0 7px 8px;
+            right: 1px;
+            top: 0;
+        }
+
+        .next-icon::after {
+            border-width: 7px 0 7px 8px;
+            right: -4px;
+            top: 0;
+        }
+
+        /* 悬停时图标颜色变化 */
+        .music-button:hover .play-icon {
+            background: linear-gradient(90deg, #ffffff 0%, #aaaaaa 50%, #ffffff 100%);
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        }
+
+        .music-button:hover .prev-icon::before,
+        .music-button:hover .prev-icon::after {
+            border-color: transparent #aaaaaa transparent transparent;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        }
+
+        .music-button:hover .next-icon::before,
+        .music-button:hover .next-icon::after {
+            border-color: transparent transparent transparent #aaaaaa;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes rotate3d {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        #visualizer {
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 30%;
+            z-index: 10;
+            pointer-events: none;
+            background: transparent;
+            display: none; /* 暂时隐藏可视化器避免黑色区域 */
+        }
+
+        .sticker {
+            position: absolute;
+            top: 30px;   /* 距离页面顶部的距离，可调整 */
+            right: 40px; /* 距离页面右侧的距离，可调整 */
+            z-index: 200; /* 保证在电视机上方 */
+            pointer-events: none; /* 不影响鼠标操作 */
+        }
+
+        .sticker img {
+            width: 100px;      /* 贴纸大小，可调整 */
+            height: auto;
+            border-radius: 18px; /* 可选，让贴纸有圆角 */
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18); /* 可选，增加立体感 */
+            opacity: 0.95;      /* 可选，略微透明 */
+        }
+
+        .sticker-near-music {
+            position: absolute;
+            top: 30px;           /* 与音乐按钮对齐 */
+            left: 90px;          /* 音乐按钮宽50px+间距40px，可微调 */
+            width: 60px;         /* 贴纸大小，可调整 */
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            opacity: 0.96;
+            z-index: 101;        /* 保证在按钮之上 */
+            pointer-events: none;
+        }
+        .sticker-left {
+            width: 60px;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            opacity: 0.96;
+            pointer-events: none;
+        }
+        .music-button-right {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            left: auto;
+            z-index: 100;
+        }
+
+        .corner-group {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            z-index: 110;
+            gap: 16px; /* 贴纸和按钮之间的间距，可调整 */
+        }
+        .music-button-left {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+        }
+        .sticker-right {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            opacity: 0.96;
+            z-index: 10;
+            pointer-events: auto; /* 允许点击 */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+
+        .sticker-right:hover {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            filter: brightness(1.05) saturate(1.1);
+            animation-play-state: paused; /* 悬停时暂停动画 */
+        }
+
+        /* SpongeBob 酷炫动画效果 */
+        @keyframes spongebob-float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-8px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(-4px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-12px) rotate(-2deg);
+            }
+        }
+
+        @keyframes spongebob-spin {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(90deg) scale(1.05);
+            }
+            50% {
+                transform: rotate(180deg) scale(1);
+            }
+            75% {
+                transform: rotate(270deg) scale(1.05);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes spongebob-pulse {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1) hue-rotate(0deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+                filter: brightness(1.2) hue-rotate(30deg);
+            }
+        }
+
+        /* 应用动画到SpongeBob */
+        .sticker-right {
+            animation: spongebob-float 4s ease-in-out infinite;
+        }
+
+        /* 点击时的特殊效果 */
+        .sticker-right.clicked {
+            animation: spongebob-spin 0.8s ease-in-out;
+        }
+
+        /* 第二页标题悬停效果 */
+        #page-second h1:hover {
+            color: rgba(255, 255, 255, 1) !important;
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* 第三页视频布局样式 */
+        .video-page-header {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .video-content-layout {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 55%;
+            display: flex;
+            gap: 25px;
+            z-index: 10;
+        }
+
+        .video-section {
+            flex: 1.5;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.9);
+            position: relative;
+            box-shadow: 
+                /* 外部深色阴影 */
+                0 8px 20px rgba(0, 0, 0, 0.6),
+                /* 内部边框效果 */
+                inset 0 0 0 8px #1a1a1a,
+                inset 0 0 0 12px #333,
+                inset 0 0 0 16px #1a1a1a,
+                /* 立体光影效果 */
+                inset -4px -4px 8px rgba(0, 0, 0, 0.8),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .video-info-section {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 复古电视机样式覆盖 */
+        .tv-outer {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 1vh !important;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+            min-height: 100vh !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .tv-frame {
+            background: linear-gradient(145deg, #4a4a4a 0%, #2a2a2a 50%, #1a1a1a 100%) !important;
+            border-radius: 20px !important;
+            padding: 1rem !important;
+            box-shadow: 
+                inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+                inset 5px 5px 15px rgba(255, 255, 255, 0.1),
+                0 20px 40px rgba(0, 0, 0, 0.3) !important;
+            position: relative !important;
+            width: 98vw !important;
+            height: 96vh !important;
+            max-width: none !important;
+            max-height: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        /* 扬声器格栅 */
+        .tv-frame::before {
+            content: '' !important;
+            position: absolute !important;
+            left: 0.5rem !important;
+            top: 1rem !important;
+            bottom: 1rem !important;
+            width: 30px !important;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 3px,
+                    rgba(51, 51, 51, 0.8) 3px,
+                    rgba(51, 51, 51, 0.8) 5px,
+                    transparent 5px,
+                    transparent 8px
+                ) !important;
+            border-radius: 5px !important;
+            z-index: 1 !important;
+        }
+
+        /* 屏幕边框 */
+        .tv-frame::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: calc(100% - 60px) !important;
+            height: calc(100% - 40px) !important;
+            background: linear-gradient(145deg, #333 0%, #1a1a1a 100%) !important;
+            border-radius: 15px !important;
+            box-shadow: 
+                inset -3px -3px 10px rgba(0, 0, 0, 0.8),
+                inset 3px 3px 10px rgba(255, 255, 255, 0.1) !important;
+            z-index: 2 !important;
+        }
+
+        /* 控制面板旋钮 */
+        .tv-frame .tv-controls {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 6;
+        }
+
+        .tv-frame .control-knob {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(145deg, #555 0%, #333 100%);
+            border-radius: 50%;
+            box-shadow: 
+                inset -2px -2px 5px rgba(0, 0, 0, 0.5),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .tv-frame .control-knob::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6px;
+            background: #666;
+            border-radius: 1px;
+        }
+
+        /* 移动端响应式设计 */
+        @media (max-width: 768px) {
+            .video-content-layout {
+                flex-direction: column;
+                width: 90%;
+                height: 70%;
+                gap: 15px;
+            }
+            
+            .video-section {
+                flex: none;
+                height: 60%;
+            }
+            
+            .video-info-section {
+                flex: none;
+                height: 40%;
+                padding: 10px;
+            }
+            
+            .video-page-header h1 {
+                font-size: 16px !important;
+            }
+            
+            .video-info-section h2 {
+                font-size: 14px !important;
+            }
+        }
+
+
+
+        #crt-snow {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            z-index: 200;
+            pointer-events: none;
+            border-radius: 36px; /* 保持和屏幕圆角一致 */
+        }
+
+        #energy-flash {
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            border-radius: 36px; /* 保持和屏幕圆角一致 */
+            z-index: 200;
+            pointer-events: none;
+            opacity: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                #fffbe6 0%, 
+                #ffe066 20%, 
+                #3a8dde 50%, 
+                #a259ff 80%, 
+                transparent 100%);
+            transition: opacity 0.4s;
+        }
+
+        .tv-outer {
+            background: #d2cfc2;           /* 电视外壳米色/灰色 */
+            border-radius: 48px;           /* 圆角更大更像电视 */
+            padding: 48px;                 /* 外壳厚度，可调整 */
+            box-shadow: 0 0 60px 10px rgba(0,0,0,0.5); /* 立体阴影 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 屏幕页面切换样式 */
+        .screen-page {
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+            z-index: 5 !important;
+            background: linear-gradient(180deg, #444 0%, #23272e 100%);
+            border-radius: 12px;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(68, 68, 68, 0.3);
+            overflow: hidden;
+        }
+
+        /* 静电/星星覆盖层 */
+        .static-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none; /* 确保这些点不会干扰鼠标事件 */
+            z-index: 1; /* 确保它在屏幕内容下方 */
+        }
+
+        .static-dot {
+            position: absolute;
+            width: 2px; /* 星星的大小 */
+            height: 2px; /* 星星的大小 */
+            background: rgba(255, 255, 255, 0.6); /* 星星的颜色和透明度 (白色，半透明) */
+            border-radius: 50%; /* 使星星呈圆形 */
+            animation: twinkle 3s infinite; /* 应用闪烁动画，持续3秒，无限循环 */
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; } /* 动画开始和结束时透明度为0.3 */
+            50% { opacity: 1; } /* 动画中间时透明度为1 (最亮) */
+        }
+
+        /* 屏幕玻璃表面 */
+        .screen-glass {
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            right: 20px;
+            bottom: 20px;
+            background: #000; /* 屏幕玻璃的背景色，纯黑色 */
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 3;
+            
+            /* Convex/protruding effect (凸起/突出效果) */
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.8), /* 外部阴影，增加深度感 */
+                inset 0 0 50px rgba(255, 255, 255, 0.05), /* 内部浅色阴影，模拟玻璃内部光线 */
+                0 8px 25px rgba(0, 0, 0, 0.5); /* 底部阴影，增强突出感 */
+            
+            /* Curved glass effect (曲面玻璃效果) */
+            transform: perspective(1000px) rotateX(-1deg); /* 视角和轻微的X轴旋转，模拟曲面 */
+            transform-style: preserve-3d;
+        }
+
+        /* 玻璃反射效果 */
+        .glass-reflection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%, /* 从左上角开始的白色半透明光泽 */
+                transparent 30%,
+                transparent 70%,
+                rgba(255, 255, 255, 0.05) 100% /* 到右下角的白色半透明光泽 */
+            );
+            pointer-events: none;
+            z-index: 6;
+            border-radius: 10px;
+            
+            /* Additional glass shine (额外的玻璃光泽) */
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%), /* 左上角的圆形高光 */
+                linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%); /* 45度角的斜向高光 */
+        }
+
+        .screen-page.fade-out {
+            opacity: 0;
+        }
+
+        .screen-page.fade-in {
+            opacity: 1;
+        }
+
+        /* 更真实的老电视关机效果 */
+        @keyframes crt-shutdown {
+          0% {
+            transform: scaleY(1) scaleX(1);
+            filter: brightness(1) contrast(1) saturate(1);
+            opacity: 1;
+          }
+          20% {
+            transform: scaleY(1.05) scaleX(1);
+            filter: brightness(1.2) contrast(1.1) saturate(1.1);
+          }
+          70% {
+            transform: scaleY(0.02) scaleX(0.95);
+            filter: brightness(2.5) contrast(2) saturate(0.5);
+            opacity: 0.9;
+          }
+          85% {
+            transform: scaleY(0.01) scaleX(0.8);
+            filter: brightness(4) contrast(3) saturate(0);
+            opacity: 0.7;
+          }
+          95% {
+            transform: scaleY(0.005) scaleX(0.1);
+            filter: brightness(6) contrast(4) saturate(0);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scaleY(0) scaleX(0);
+            filter: brightness(0) contrast(0) saturate(0);
+            opacity: 0;
+          }
+        }
+
+        /* 更真实的老电视开机效果 */
+        @keyframes crt-startup {
+          0% {
+            transform: scaleY(0) scaleX(0);
+            filter: brightness(0) contrast(0) saturate(0);
+            opacity: 0;
+          }
+          10% {
+            transform: scaleY(0.005) scaleX(0.1);
+            filter: brightness(6) contrast(4) saturate(0);
+            opacity: 0.4;
+          }
+          25% {
+            transform: scaleY(0.01) scaleX(0.6);
+            filter: brightness(4) contrast(3) saturate(0.2);
+            opacity: 0.7;
+          }
+          45% {
+            transform: scaleY(0.03) scaleX(0.9);
+            filter: brightness(2.5) contrast(2) saturate(0.6);
+            opacity: 0.9;
+          }
+          75% {
+            transform: scaleY(1.1) scaleX(1);
+            filter: brightness(1.3) contrast(1.2) saturate(1.1);
+          }
+          90% {
+            transform: scaleY(0.98) scaleX(1);
+            filter: brightness(1.1) contrast(1.05) saturate(1.05);
+          }
+          100% {
+            transform: scaleY(1) scaleX(1);
+            filter: brightness(1) contrast(1) saturate(1);
+            opacity: 1;
+          }
+        }
+
+        /* 改进的静电噪点效果 */
+        @keyframes static-noise {
+          0% {
+            background: 
+              repeating-linear-gradient(0deg, 
+                rgba(255,255,255,0.1) 0px, 
+                rgba(255,255,255,0.1) 1px,
+                rgba(0,0,0,0.05) 1px, 
+                rgba(0,0,0,0.05) 2px
+              ),
+              repeating-linear-gradient(90deg, 
+                rgba(255,255,255,0.03) 0px, 
+                transparent 1px, 
+                transparent 3px,
+                rgba(255,255,255,0.03) 4px
+              );
+            filter: brightness(0.8) contrast(2);
+          }
+          33% {
+            background: 
+              repeating-linear-gradient(0deg, 
+                rgba(255,255,255,0.08) 0px, 
+                rgba(0,0,0,0.1) 1px,
+                rgba(255,255,255,0.08) 2px, 
+                rgba(0,0,0,0.1) 3px
+              ),
+              repeating-linear-gradient(90deg, 
+                rgba(255,255,255,0.05) 0px, 
+                transparent 2px, 
+                transparent 4px,
+                rgba(255,255,255,0.05) 5px
+              );
+            filter: brightness(1.2) contrast(1.8);
+          }
+          66% {
+            background: 
+              repeating-linear-gradient(0deg, 
+                rgba(255,255,255,0.12) 0px, 
+                rgba(0,0,0,0.08) 1px,
+                rgba(255,255,255,0.12) 3px, 
+                rgba(0,0,0,0.08) 4px
+              ),
+              repeating-linear-gradient(90deg, 
+                rgba(255,255,255,0.04) 0px, 
+                transparent 1px, 
+                transparent 2px,
+                rgba(255,255,255,0.04) 3px
+              );
+            filter: brightness(0.9) contrast(2.2);
+          }
+          100% {
+            background: 
+              repeating-linear-gradient(0deg, 
+                rgba(255,255,255,0.15) 0px, 
+                rgba(0,0,0,0.03) 1px,
+                rgba(255,255,255,0.15) 2px, 
+                rgba(0,0,0,0.03) 3px
+              ),
+              repeating-linear-gradient(90deg, 
+                rgba(255,255,255,0.06) 0px, 
+                transparent 2px, 
+                transparent 3px,
+                rgba(255,255,255,0.06) 4px
+              );
+            filter: brightness(1.1) contrast(1.9);
+          }
+        }
+
+        /* 应用动画的class */
+        .screen-page.crt-shutdown {
+          animation: crt-shutdown 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .screen-page.crt-startup {
+          animation: crt-startup 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .screen-page.static-noise {
+          animation: static-noise 0.15s linear infinite;
+          background-color: #111;
+        }
+    </style>
+</head>
+<body>
+    <div class="tv-outer">
+        <div class="tv-frame">
+            <!-- 控制面板旋钮 -->
+            <div class="tv-controls">
+                <!-- 控制按钮已替换为音乐控制面板 -->
+            </div>
+            
+            <!-- 屏幕玻璃表面 -->
+            <div class="screen-glass">
+                <!-- 玻璃反射效果 -->
+                <div class="glass-reflection"></div>
+            </div>
+            
+            <!-- 页面1：主页面（当前内容） -->
+            <div class="screen-page" id="page-main">
+                <!-- 静电/星星效果 -->
+                <div class="static-overlay" id="static-overlay-main"></div>
+                
+                <!-- 你的内容（logo、按钮、贴纸等） -->
+                <!-- 音乐控制面板 -->
+                <div class="music-control-panel">
+                    <button class="music-button prev-button" onclick="previousTrack()">
+                        <div class="prev-icon"></div>
+                    </button>
+                    <button class="music-button play-button" onclick="toggleMusic()">
+                        <div class="play-icon"></div>
+                    </button>
+                    <button class="music-button next-button" onclick="nextTrack()">
+                        <div class="next-icon"></div>
+                    </button>
+                </div>
+                <img src="spongebob.jpg" alt="sticker" class="sticker-right" id="spongebob-sticker">
+                <div class="logo-container">
+                    <img src="logo.png" alt="" class="logo-image">
+                </div>
+                <canvas id="visualizer" width="600" height="200"></canvas>
+                <!-- 多个音频文件 -->
+                <audio id="music" preload="auto"></audio>
+            </div>
+            
+            <!-- 页面2：新页面内容 -->
+            <div class="screen-page" id="page-second" style="display: none;">
+                <!-- 静电/星星效果 -->
+                <div class="static-overlay" id="static-overlay-second"></div>
+                
+                <!-- 只保留SpongeBob贴纸，点击返回主页 -->
+                <img src="spongebob.jpg" alt="sticker" class="sticker-right" onclick="switchToPageSimple('page-main')">
+                
+                <!-- 中央显示 "The Highlight Reel" 替代logo，可点击 -->
+                <div class="logo-container">
+                    <h1 onclick="switchToPageSimple('page-third')" style="color: rgba(255, 255, 255, 0.9); font-family: 'Press Start 2P', monospace; font-size: 20px; text-align: center; line-height: 1; margin: 0; white-space: nowrap; cursor: pointer; transition: all 0.3s ease;">The Highlight Reel</h1>
+                </div>
+            </div>
+            
+            <!-- 页面3：The Highlight Reel 详细页面 -->
+            <div class="screen-page" id="page-third" style="display: none;">
+                <!-- 静电/星星效果 -->
+                <div class="static-overlay" id="static-overlay-third"></div>
+                
+                <!-- SpongeBob贴纸，点击返回第二页 -->
+                <img src="spongebob.jpg" alt="sticker" class="sticker-right" onclick="switchToPageSimple('page-second')">
+                
+                <!-- 顶部标题 -->
+                <div class="video-page-header">
+                    <h1 style="color: rgba(255, 255, 255, 0.9); font-family: 'Press Start 2P', monospace; font-size: 22px; text-align: center; margin: 0; margin-bottom: 30px;">The Highlight Reel</h1>
+                </div>
+                
+                <!-- 视频和信息布局 -->
+                <div class="video-content-layout">
+                    <!-- 左侧视频区域 -->
+                    <div class="video-section">
+                        <video 
+                            id="snowboarding-video"
+                            autoplay 
+                            muted 
+                            loop 
+                            controls 
+                            playsinline 
+                            preload="metadata"
+                            style="width: 100%; height: 100%; border-radius: 8px; background: #000; position: relative; z-index: 2;">
+                            <source src="snowboarding.mp4" type="video/mp4">
+                            <source src="snowboarding.webm" type="video/webm">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
+                    
+                    <!-- 右侧信息区域 -->
+                    <div class="video-info-section">
+                        <div class="video-title">
+                            <h2 style="color: rgba(255, 255, 255, 0.9); font-family: 'Press Start 2P', monospace; font-size: 18px; margin: 0; text-align: center;">Snowboarding</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 可以添加更多页面... -->
+            <!-- <div class="screen-page" id="page-third" style="display: none;">
+                第三个页面内容...
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        let isPlaying = false;
+        let currentTrackIndex = 0;
+        const music = document.getElementById('music');
+        const playIcon = document.querySelector('.play-icon');
+        const spongebob = document.getElementById('spongebob-sticker');
+        const tvFrame = document.querySelector('.tv-frame');
+        const snowCanvas = document.getElementById('crt-snow');
+        let snowTimer = null;
+        const energyFlash = document.getElementById('energy-flash');
+
+        // 音乐播放列表 - 包含目录中所有MP3文件
+        const playlist = [
+            { title: "Massive", src: "massive.mp3" },
+            { title: "Drake - Headlines", src: "Drake_-_Headlines_Offblogmedia.com.mp3" },
+            { title: "Mystery Track", src: "M500003rVI5C4G5sXC.mp3" },
+            { title: "Post Malone - Congratulations", src: "Post-Malone-Congratulations-ft-Quavo-(HipHopKit.com).mp3" }
+        ];
+
+        function loadTrack(index) {
+            if (index >= 0 && index < playlist.length) {
+                currentTrackIndex = index;
+                music.src = playlist[currentTrackIndex].src;
+                music.load();
+                console.log(`Loaded: ${playlist[currentTrackIndex].title}`);
+                
+                // 简单的错误处理，不自动跳转
+                music.onerror = function() {
+                    console.log(`无法加载: ${playlist[currentTrackIndex].title}`);
+                };
+            }
+        }
+
+        function previousTrack() {
+            const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
+            const wasPlaying = isPlaying;
+            
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                // 更新播放按钮显示
+                playIcon.style.borderWidth = '8px 0 8px 15px';
+                playIcon.style.marginLeft = '3px';
+            }
+            
+            // 移除旧的错误处理器避免循环
+            music.onerror = null;
+            loadTrack(newIndex);
+            
+            if (wasPlaying) {
+                setTimeout(() => {
+                    toggleMusic();
+                }, 200);
+            }
+            
+            console.log(`切换到上一首: ${playlist[newIndex].title}`);
+        }
+
+        function nextTrack() {
+            const newIndex = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
+            const wasPlaying = isPlaying;
+            
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                // 更新播放按钮显示
+                playIcon.style.borderWidth = '8px 0 8px 15px';
+                playIcon.style.marginLeft = '3px';
+            }
+            
+            // 移除旧的错误处理器避免循环
+            music.onerror = null;
+            loadTrack(newIndex);
+            
+            if (wasPlaying) {
+                setTimeout(() => {
+                    toggleMusic();
+                }, 200);
+            }
+            
+            console.log(`切换到下一首: ${playlist[newIndex].title}`);
+        }
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                playIcon.style.borderWidth = '10px 0 10px 20px';
+                playIcon.style.marginLeft = '5px';
+            } else {
+                // 设置音频属性确保稳定播放
+                music.playbackRate = 1.0; // 确保播放速度正常
+                
+                // 先尝试播放音乐
+                music.play().then(() => {
+                    isPlaying = true;
+                    playIcon.style.borderWidth = '0 0 0 20px';
+                    playIcon.style.marginLeft = '0';
+                }).catch(error => {
+                    console.log('音乐播放失败:', error);
+                    // 如果自动播放失败，仍然更新按钮状态
+                    isPlaying = true;
+                    playIcon.style.borderWidth = '0 0 0 20px';
+                    playIcon.style.marginLeft = '0';
+                });
+            }
+        }
+
+
+
+        function showSnowEffect(duration = 1500) {
+            // 让canvas覆盖整个tv-frame
+            snowCanvas.width = tvFrame.clientWidth;
+            snowCanvas.height = tvFrame.clientHeight;
+            snowCanvas.style.display = 'block';
+
+            const ctx = snowCanvas.getContext('2d');
+            let running = true;
+
+            function drawSnow() {
+                if (!running) return;
+                const w = snowCanvas.width, h = snowCanvas.height;
+                const imgData = ctx.createImageData(w, h);
+                for (let i = 0; i < imgData.data.length; i += 4) {
+                    const shade = Math.random() * 255;
+                    imgData.data[i] = shade;
+                    imgData.data[i+1] = shade;
+                    imgData.data[i+2] = shade;
+                    imgData.data[i+3] = 255;
+                }
+                ctx.putImageData(imgData, 0, 0);
+                requestAnimationFrame(drawSnow);
+            }
+            drawSnow();
+
+            // 停止动画并隐藏
+            clearTimeout(snowTimer);
+            snowTimer = setTimeout(() => {
+                running = false;
+                snowCanvas.style.display = 'none';
+            }, duration);
+        }
+
+        // 改进的老电视换台效果函数
+        function switchToPageWithCRTEffect(pageId) {
+            const currentPage = document.querySelector('.screen-page:not([style*="display: none"])');
+            const targetPage = document.getElementById(pageId);
+            
+            if (currentPage && targetPage && currentPage !== targetPage) {
+                // 第1步: 关机效果 (屏幕逐渐收缩成中心点)
+                currentPage.classList.add('crt-shutdown');
+                
+                setTimeout(() => {
+                    // 第2步: 隐藏当前页面，准备显示目标页面
+                    currentPage.style.display = 'none';
+                    currentPage.classList.remove('crt-shutdown');
+                    
+                    targetPage.style.display = 'flex';
+                    targetPage.style.opacity = '0';
+                    
+                    // 第3步: 显示静电噪点（更快的频率）
+                    targetPage.classList.add('static-noise');
+                    targetPage.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        // 第4步: 移除静电噪点，开始开机效果
+                        targetPage.classList.remove('static-noise');
+                        targetPage.classList.add('crt-startup');
+                        
+                        setTimeout(() => {
+                            // 第5步: 移除开机动画class，恢复正常
+                            targetPage.classList.remove('crt-startup');
+                            targetPage.style.opacity = '';
+                        }, 800); // 开机动画时长
+                        
+                    }, 400); // 静电噪点时长
+                    
+                }, 1000); // 关机动画时长
+            }
+        }
+
+        // 普通页面切换函数（不带CRT效果）
+        function switchToPage(pageId) {
+            const currentPage = document.querySelector('.screen-page:not([style*="display: none"])');
+            const targetPage = document.getElementById(pageId);
+            
+            if (currentPage && targetPage && currentPage !== targetPage) {
+                currentPage.style.display = 'none';
+                targetPage.style.display = 'flex';
+            }
+        }
+
+        // 简化的页面切换函数（只有关机动画，无闪烁和开机）
+        function switchToPageSimple(pageId) {
+            const currentPage = document.querySelector('.screen-page:not([style*="display: none"])');
+            const targetPage = document.getElementById(pageId);
+            
+            if (currentPage && targetPage && currentPage !== targetPage) {
+                // 给SpongeBob添加点击旋转效果
+                const spongebob = document.querySelector('.sticker-right');
+                spongebob.classList.add('clicked');
+                
+                // 只执行关机效果
+                currentPage.classList.add('crt-shutdown');
+                
+                setTimeout(() => {
+                    // 关机动画结束后直接切换页面，无闪烁和开机动画
+                    currentPage.style.display = 'none';
+                    currentPage.classList.remove('crt-shutdown');
+                    targetPage.style.display = 'flex';
+                    
+                    // 移除点击效果
+                    spongebob.classList.remove('clicked');
+                }, 1000); // 关机动画时长
+            }
+        }
+
+        // 生成星星/静电点效果
+        function createStarField(containerId, starCount = 50) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // 清空现有星星
+            container.innerHTML = '';
+            
+            // 生成星星
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'static-dot';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // 点击贴纸触发简化的换台效果
+        window.onload = function() {
+            const spongebob = document.getElementById('spongebob-sticker');
+            
+            // 设置音频初始属性
+            music.playbackRate = 1.0;
+            music.preload = 'auto';
+            
+            // 加载第一首歌
+            loadTrack(0);
+            
+            // 为所有页面创建星星效果
+            createStarField('static-overlay-main', 50);
+            createStarField('static-overlay-second', 50);
+            createStarField('static-overlay-third', 50);
+            
+            // 处理视频播放兼容性
+            const video = document.getElementById('snowboarding-video');
+            if (video) {
+                // 尝试自动播放，如果失败则不报错
+                video.play().catch(e => {
+                    console.log('视频自动播放被阻止，需要用户交互');
+                    // 在移动设备上，用户首次交互后再尝试播放
+                });
+                
+                // 监听视频加载错误
+                video.addEventListener('error', function(e) {
+                    console.log('视频加载错误:', e);
+                });
+                
+                // 移动设备兼容性处理
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    video.setAttribute('webkit-playsinline', true);
+                    video.setAttribute('x5-video-player-type', 'h5');
+                    video.setAttribute('x5-video-player-fullscreen', false);
+                }
+            }
+            
+            spongebob.addEventListener('click', () => {
+                // 使用简化的换台效果切换到第二个页面
+                switchToPageSimple('page-second');
+            });
+        };
+
+        // 添加错误处理，帮助我们找出问题
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                console.error('图片加载失败:', e.target.src);
+            }
+        }, true);
+    </script>
+</body>
+</html> 
