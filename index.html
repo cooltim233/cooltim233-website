@@ -943,6 +943,48 @@
           animation: static-noise 0.15s linear infinite;
           background-color: #111;
         }
+        /* 星星向后飞行动画 - 宇宙飞船向前的感觉 */
+        @keyframes starWarp {
+            0% { 
+                transform: scale(1) translateX(calc(var(--centerX) * 0px)) translateY(calc(var(--centerY) * 0px));
+                opacity: 0.8;
+                box-shadow: 0 0 1px white;
+            }
+            20% { 
+                transform: scale(1.2) translateX(calc(var(--centerX) * 20px)) translateY(calc(var(--centerY) * 20px));
+                opacity: 0.9;
+                box-shadow: 0 0 2px white;
+            }
+            60% { 
+                transform: scale(2) translateX(calc(var(--centerX) * 100px)) translateY(calc(var(--centerY) * 100px));
+                opacity: 0.7;
+                box-shadow: 0 0 4px white;
+            }
+            100% { 
+                transform: scale(3) translateX(calc(var(--centerX) * 300px)) translateY(calc(var(--centerY) * 300px));
+                opacity: 0;
+                box-shadow: 0 0 8px white;
+            }
+        }
+
+        /* 音乐播放时的星星效果 */
+        .music-playing .static-dot {
+            animation: starWarp 2s linear infinite;
+        }
+
+        /* 为不同的星星添加不同的延迟，创造层次感 */
+        .music-playing .static-dot:nth-child(odd) {
+            animation-duration: 1.5s;
+        }
+
+        .music-playing .static-dot:nth-child(even) {
+            animation-duration: 2.5s;
+        }
+
+        .music-playing .static-dot:nth-child(3n) {
+            animation-duration: 3s;
+        }
+
     </style>
 </head>
 <body>
@@ -1135,6 +1177,11 @@
             if (isPlaying) {
                 music.pause();
                 isPlaying = false;
+                
+                // 停止星星向后飞行效果
+                document.querySelectorAll('.screen-page').forEach(page => {
+                    page.classList.remove('music-playing');
+                });
                 playIcon.style.borderWidth = '10px 0 10px 20px';
                 playIcon.style.marginLeft = '5px';
             } else {
@@ -1146,12 +1193,68 @@
                     isPlaying = true;
                     playIcon.style.borderWidth = '0 0 0 20px';
                     playIcon.style.marginLeft = '0';
+                    
+                    // 启动星星向后飞行效果
+                    document.querySelectorAll('.screen-page').forEach(page => {
+                        page.classList.add('music-playing');
+                        
+                        // 为每个星星设置从中心向外的运动方向
+                        const stars = page.querySelectorAll('.static-dot');
+                        const pageRect = page.getBoundingClientRect();
+                        const centerX = pageRect.width / 2;
+                        const centerY = pageRect.height / 2;
+                        
+                        stars.forEach(star => {
+                            const starX = parseFloat(star.style.left) * pageRect.width / 100;
+                            const starY = parseFloat(star.style.top) * pageRect.height / 100;
+                            
+                            // 计算星星相对于中心的方向
+                            const deltaX = starX - centerX;
+                            const deltaY = starY - centerY;
+                            
+                            // 标准化方向向量
+                            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY) || 1;
+                            const normalizedX = deltaX / distance;
+                            const normalizedY = deltaY / distance;
+                            
+                            star.style.setProperty('--centerX', normalizedX);
+                            star.style.setProperty('--centerY', normalizedY);
+                        });
+                    });
                 }).catch(error => {
                     console.log('音乐播放失败:', error);
                     // 如果自动播放失败，仍然更新按钮状态
                     isPlaying = true;
                     playIcon.style.borderWidth = '0 0 0 20px';
                     playIcon.style.marginLeft = '0';
+                    
+                    // 启动星星向后飞行效果
+                    document.querySelectorAll('.screen-page').forEach(page => {
+                        page.classList.add('music-playing');
+                        
+                        // 为每个星星设置从中心向外的运动方向
+                        const stars = page.querySelectorAll('.static-dot');
+                        const pageRect = page.getBoundingClientRect();
+                        const centerX = pageRect.width / 2;
+                        const centerY = pageRect.height / 2;
+                        
+                        stars.forEach(star => {
+                            const starX = parseFloat(star.style.left) * pageRect.width / 100;
+                            const starY = parseFloat(star.style.top) * pageRect.height / 100;
+                            
+                            // 计算星星相对于中心的方向
+                            const deltaX = starX - centerX;
+                            const deltaY = starY - centerY;
+                            
+                            // 标准化方向向量
+                            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY) || 1;
+                            const normalizedX = deltaX / distance;
+                            const normalizedY = deltaY / distance;
+                            
+                            star.style.setProperty('--centerX', normalizedX);
+                            star.style.setProperty('--centerY', normalizedY);
+                        });
+                    });
                 });
             }
         }
